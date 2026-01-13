@@ -1,0 +1,21 @@
+# Inference Configuration
+inference:
+  device: "cuda"  # cuda, cpu, or mps
+  batch_size: 1
+  num_workers: 4
+  use_fp16: true
+  use_amp: false
+  
+  # Model inference settings
+  max_seq_length: 512
+  temperature: 0.7
+  top_p: 0.9
+  
+  # Performance optimizations
+  compile_model: false
+  use_torch_compile: false
+  cache_compiled_model: true
+  
+  # Memory management
+  clear_cache_after_inference: true
+  max_memory_allocated: "8GB"

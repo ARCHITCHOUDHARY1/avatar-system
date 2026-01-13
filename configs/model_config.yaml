@@ -1,0 +1,30 @@
+# Model Configuration
+model:
+  name: "sadtalker"
+  version: "v1.0"
+  checkpoint_path: "./models/sadtalker/checkpoints"
+  config_path: "./models/sadtalker/configs"
+  
+  # SadTalker specific settings
+  sadtalker:
+    pose_style: 0  # 0-46 different pose styles
+    expression_scale: 1.0
+    input_yaw_list: null
+    input_pitch_list: null
+    input_roll_list: null
+    enhancer: "gfpgan"  # gfpgan, RestoreFormer
+    background_enhancer: null
+    face_3d: "models/sadtalker/checkpoints/face3d.pth"
+    face_model: "models/sadtalker/checkpoints/face_model.pth"
+    
+  # GFPGAN settings
+  gfpgan:
+    model_path: "./models/sadtalker/gfpgan"
+    upscale: 2
+    arch: "clean"
+    channel: 2
+    
+  # Model loading
+  preload_models: true
+  lazy_load: false
+  cache_models: true

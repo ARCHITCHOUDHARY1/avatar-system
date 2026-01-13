@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Avatar System Orchestrator - AI-Powered Talking Avatar Generation">
+    <title>Avatar System Orchestrator | AI Talking Avatar Generation</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/static/css/premium-glass.css">
+    <link rel="stylesheet" href="/static/css/enhanced-styles.css">
+    <link rel="stylesheet" href="/static/css/dashboard.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Premium Header -->
+        <header class="glass-header glass-panel app-header">
+            <div class="header-content logo-section">
+                <div class="logo-icon">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <circle cx="20" cy="20" r="18" stroke="url(#gradient1)" stroke-width="3" />
+                        <circle cx="20" cy="15" r="6" fill="url(#gradient1)" />
+                        <path d="M20 23 L20 32" stroke="url(#gradient1)" stroke-width="3" stroke-linecap="round" />
+                        <circle cx="20" cy="32" r="2" fill="url(#gradient1)" />
+                        <defs>
+                            <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <h1 class="gradient-text" style="font-family: 'Outfit', sans-serif;">Avatar System Pro</h1>
+                    <span class="subtitle">AI-Powered Talking Avatars</span>
+                </div>
+            </div>
+
+            <div style="flex: 1;"></div>
+
+            <!-- Hardware Status Widget -->
+            <div id="hardwareStatus" class="hardware-widget">
+                <div class="status-dot-large animate-pulse"></div>
+                <div style="display: flex; flex-direction: column;">
+                    <span id="hardwareLabel"
+                        style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Detecting...</span>
+                    <span id="modelLabel" style="font-weight: 600; font-size: 0.9rem;">Please Wait</span>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <button class="btn-icon" id="themeToggle" aria-label="Toggle theme">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                        <path
+                            d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" />
+                    </svg>
+                </button>
+                <div class="status-indicator" id="apiStatus">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Connecting...</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Section -->
+            <section class="dashboard-section glass-panel" id="dashboardSection" style="margin-bottom: 2rem;">
+                <div class="section-header">
+                    <h2>📊 System Dashboard</h2>
+                    <p>Real-time statistics and performance metrics</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">🎬</div>
+                        <div class="stat-content">
+                            <div class="stat-label">Total Jobs</div>
+                            <div class="stat-value" id="statTotalJobs">0</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card success">
+                        <div class="stat-icon">✅</div>
+                        <div class="stat-content">
+                            <div class="stat-label">Completed</div>
+                            <div class="stat-value" id="statCompleted">0</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card info">
+                        <div class="stat-icon">📈</div>
+                        <div class="stat-content">
+                            <div class="stat-label">Success Rate</div>
+                            <div class="stat-value"><span id="statSuccessRate">0</span>%</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card warning">
+                        <div class="stat-icon">⚡</div>
+                        <div class="stat-content">
+                            <div class="stat-label">Avg FPS</div>
+                            <div class="stat-value" id="statAvgFPS">0</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">⭐</div>
+                        <div class="stat-content">
+                            <div class="stat-label">Avg Quality</div>
+                            <div class="stat-value" id="statQuality">0</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">💻</div>
+                        <div class="stat-content">
+                            <div class="stat-label">Device</div>
+                            <div class="stat-value" id="statDevice">CPU</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- System Performance -->
+                <div class="performance-panel glass-panel" style="margin-top: 1.5rem; padding: 1.5rem;">
+                    <h3 style="margin-bottom: 1rem;">System Performance</h3>
+                    <div class="performance-grid">
+                        <div class="performance-item">
+                            <span class="performance-label">GPU Memory:</span>
+                            <span class="performance-value" id="perfGPUMem">0 / 0 GB</span>
+                        </div>
+                        <div class="performance-item">
+                            <span class="performance-label">RAM Usage:</span>
+                            <span class="performance-value" id="perfRAM">0%</span>
+                        </div>
+                        <div class="performance-item">
+                            <span class="performance-label">CPU Usage:</span>
+                            <span class="performance-value" id="perfCPU">0%</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Microphone Recording Section -->
+            <section class="microphone-section glass-panel" id="microphoneSection" style="margin-bottom: 2rem;">
+                <div class="section-header">
+                    <h2>🎤 Record Audio (Live)</h2>
+                    <p>Record audio directly from your microphone with real-time frequency analysis</p>
+                </div>
+                <div class="microphone-content">
+                    <div class="microphone-controls">
+                        <button class="btn-primary" id="btnStartRecording" disabled>Start Recording</button>
+                        <button class="btn-secondary" id="btnPauseRecording" style="display: none;">Pause</button>
+                        <button class="btn-secondary" id="btnResumeRecording" style="display: none;">Resume</button>
+                        <button class="btn-secondary" id="btnStopRecording" style="display: none;">Stop</button>
+                        <button class="btn-secondary" id="btnCancelRecording" style="display: none;">Cancel</button>
+                    </div>
+
+                    <!-- Microphone Visualizer -->
+                    <div id="microphoneVisualizer" class="visualizer-container" style="display: none;">
+                        <div class="visualizer-header">
+                            <span>Recording...</span>
+                            <span id="recordingDuration" class="recording-duration">00:00</span>
+                        </div>
+
+                        <div class="audio-level-meter">
+                            <div class="audio-level-bar">
+                                <div id="audioLevelFill" class="audio-level-fill"></div>
+                            </div>
+                            <span id="audioLevelText">0%</span>
+                        </div>
+
+                        <div class="canvas-container">
+                            <canvas id="frequencyCanvas" width="800" height="120"></canvas>
+                        </div>
+
+                        <div class="canvas-container">
+                            <canvas id="waveformCanvas" width="800" height="80"></canvas>
+                        </div>
+
+                        <div class="audio-metrics">
+                            <div class="metric-item">
+                                <span class="metric-label">Energy</span>
+                                <span id="audioEnergy" class="metric-value">-60 dB</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-label">Pitch</span>
+                                <span id="audioPitch" class="metric-value">-- Hz</span>
+                            </div>
+                        </div>
+
+                        <div class="frequency-bands">
+                            <div class="frequency-band">
+                                <div class="band-label">🔊 Bass</div>
+                                <div id="bassValue" class="band-value">0%</div>
+                                <div class="band-bar">
+                                    <div id="bassFill" class="band-fill"></div>
+                                </div>
+                            </div>
+                            <div class="frequency-band">
+                                <div class="band-label">🎵 Mid</div>
+                                <div id="midValue" class="band-value">0%</div>
+                                <div class="band-bar">
+                                    <div id="midFill" class="band-fill"></div>
+                                </div>
+                            </div>
+                            <div class="frequency-band">
+                                <div class="band-label">🎼 Treble</div>
+                                <div id="trebleValue" class="band-value">0%</div>
+                                <div class="band-bar">
+                                    <div id="trebleFill" class="band-fill"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="recordingInfo" class="recording-info" style="display: none;">
+                        <div><span class="info-label">File:</span> <span id="recordingFileName">--</span></div>
+                        <div><span class="info-label">Duration:</span> <span id="recordingFileDuration">--</span></div>
+                        <div><span class="info-label">Size:</span> <span id="recordingFileSize">--</span></div>
+                        <button class="btn-primary" id="btnUseRecording" style="width: 100%; margin-top: 1rem;">Use This
+                            Recording</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Processing Visualizer -->
+            <section id="processingVisualizer" class="glass-panel" style="display: none; margin-bottom: 2rem;">
+                <div class="section-header">
+                    <h2>Processing Pipeline</h2>
+                    <p>Real-time visualization of avatar generation stages</p>
+                </div>
+                <div id="overallProgress" class="overall-progress">
+                    <div class="progress-timer">
+                        <span>Elapsed: </span><span id="elapsedTime">0s</span>
+                        <span style="margin-left: 2rem;">Remaining: </span><span id="estimatedTime">--</span>
+                    </div>
+                    <div class="progress-bar-large">
+                        <div id="overallProgressBar" class="progress-bar-fill"></div>
+                        <div id="overallProgressText" class="progress-bar-text">0%</div>
+                    </div>
+                    <div class="stage-info">
+                        <div>Stage: <span id="currentStageName">Init...</span></div>
+                        <div id="currentStageDescription">Preparing pipeline</div>
+                    </div>
+                </div>
+                <div id="pipelineStages" class="pipeline-stages"></div>
+                <div id="processingMetrics"></div>
+            </section>
+
+            <!-- Upload Section -->
+            <section class="upload-section">
+                <div class="section-header">
+                    <h2>Upload Files</h2>
+                    <p>Upload image + audio OR video file to generate your talking avatar</p>
+                </div>
+
+                <div class="upload-grid">
+                    <!-- Image Upload -->
+                    <div class="upload-card glass-panel">
+                        <div class="upload-zone" id="imageUploadZone" data-type="image">
+                            <input type="file" id="imageInput"
+                                accept="image/jpeg,image/jpg,image/png,image/webp,image/bmp,image/tiff" hidden>
+                            <div class="upload-content" id="imagePlaceholder">
+                                <div class="upload-icon">📸</div>
+                                <h3>Upload Image</h3>
+                                <p>Drag and drop or click to browse</p>
+                                <span class="file-types">JPG, PNG, WEBP, BMP, TIFF (Max 10MB)</span>
+                            </div>
+                            <div class="upload-preview" id="imagePreview" style="display: none;">
+                                <img src="" alt="Preview">
+                                <div class="preview-overlay">
+                                    <button class="btn-remove" data-target="image">Remove</button>
+                                </div>
+                                <div class="file-info">
+                                    <span class="file-name"></span>
+                                    <span class="file-size"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Audio Upload -->
+                    <div class="upload-card glass-panel">
+                        <div class="upload-zone" id="audioUploadZone" data-type="audio">
+                            <input type="file" id="audioInput"
+                                accept="audio/wav,audio/mp3,audio/mpeg,audio/ogg,audio/x-m4a,audio/flac" hidden>
+                            <div class="upload-content" id="audioPlaceholder">
+                                <div class="upload-icon">🎙️</div>
+                                <h3>Upload Audio</h3>
+                                <p>Drag and drop or click to browse</p>
+                                <span class="file-types">WAV, MP3, OGG, M4A, FLAC (Max 50MB)</span>
+                            </div>
+                            <div class="upload-preview" id="audioPreview" style="display: none;">
+                                <audio controls id="audioPlayer"></audio>
+                                <div class="preview-overlay">
+                                    <button class="btn-remove" data-target="audio">Remove</button>
+                                </div>
+                                <div class="file-info">
+                                    <span class="file-name"></span>
+                                    <span class="file-size"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Video Upload -->
+                    <div class="upload-card glass-panel">
+                        <div class="upload-zone" id="videoUploadZone" data-type="video">
+                            <input type="file" id="videoInput"
+                                accept="video/mp4,video/avi,video/webm,video/mov,video/mkv" hidden>
+                            <div class="upload-content" id="videoPlaceholder">
+                                <div class="upload-icon">🎥</div>
+                                <h3>Upload Video</h3>
+                                <p>Drag and drop or click to browse</p>
+                                <span class="file-types">MP4, AVI, WEBM, MOV (Max 100MB)</span>
+                            </div>
+                            <div class="upload-preview" id="videoPreview" style="display: none;">
+                                <video class="video-preview" muted></video>
+                                <div class="preview-overlay">
+                                    <button class="btn-remove" data-target="video">Remove</button>
+                                </div>
+                                <div class="file-info">
+                                    <span class="file-name"></span>
+                                    <span class="file-size"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Configuration Section -->
+            <section class="config-section glass-panel">
+                <div class="section-header">
+                    <h2>Generation Settings</h2>
+                    <p>Configure avatar generation parameters</p>
+                </div>
+
+                <div class="config-grid">
+                    <div class="config-item">
+                        <label for="fpsSelect">Frame Rate (FPS)</label>
+                        <select id="fpsSelect" class="config-select">
+                            <option value="24">24 FPS</option>
+                            <option value="25" selected>25 FPS</option>
+                            <option value="30">30 FPS</option>
+                            <option value="60">60 FPS</option>
+                        </select>
+                    </div>
+
+                    <div class="config-item">
+                        <label for="resolutionSelect">Resolution</label>
+                        <select id="resolutionSelect" class="config-select">
+                            <option value="256x256">256 x 256 (Fast)</option>
+                            <option value="512x512" selected>512 x 512 (HD)</option>
+                            <option value="1024x1024">1024 x 1024 (Ultra)</option>
+                        </select>
+                    </div>
+
+                    <div class="config-item">
+                        <label for="formatSelect">Output Format</label>
+                        <select id="formatSelect" class="config-select">
+                            <option value="mp4" selected>Video (.mp4)</option>
+                            <option value="gif">Animation (.gif)</option>
+                            <option value="wav">Audio Only (.wav)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- System Diagnostics -->
+                <div class="diagnostics-panel" style="margin-top: 2rem;">
+                    <div class="diagnostics-header">
+                        <h3>System Metrics</h3>
+                        <button onclick="toggleTroubleshooter()" class="btn-help">Need Help? 🛠️</button>
+                    </div>
+                    <div class="metrics-grid">
+                        <div class="metric-box">
+                            <div class="metric-label">CPU</div>
+                            <div id="cpuMetric" class="metric-value">0%</div>
+                        </div>
+                        <div class="metric-box">
+                            <div class="metric-label">RAM</div>
+                            <div id="ramMetric" class="metric-value">0 GB</div>
+                        </div>
+                        <div class="metric-box">
+                            <div class="metric-label">GPU</div>
+                            <div id="gpuMetric" class="metric-value">--</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-banner">
+                    <h4>🔥 Hybrid System Active</h4>
+                    <p>System will automatically select the best model (Wav2Lip/SadTalker) based on your hardware.</p>
+                </div>
+
+                <div class="action-area">
+                    <button class="btn-primary btn-generate" id="generateBtn" disabled>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8 5v14l11-7z" />
+                        </svg>
+                        Generate Avatar
+                    </button>
+                    <p class="time-estimate">Estimated time: <span id="timeEstimate">--</span></p>
+                </div>
+            </section>
+
+            <!-- Progress Section -->
+            <section class="progress-section" id="progressSection" style="display: none;">
+                <div class="progress-header">
+                    <h3>Generation in Progress</h3>
+                    <span class="progress-percentage" id="progressPercentage">0%</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+                <div class="progress-status" id="progressStatus">Initializing...</div>
+            </section>
+
+            <!-- Result Section -->
+            <section class="result-section glass-panel" id="resultSection" style="display: none;">
+                <div class="section-header">
+                    <h2>✨ Generated Avatar</h2>
+                    <p>Your talking avatar is ready</p>
+                </div>
+
+                <div class="video-container">
+                    <video id="resultVideo" controls class="result-video">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+
+                <div class="result-actions">
+                    <button class="btn-secondary" id="downloadBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4m14-7l-5 5m0 0l-5-5m5 5V3" />
+                        </svg>
+                        Download Video
+                    </button>
+                    <button class="btn-secondary" id="resetBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
+                            <path d="M21 3v5h-5" />
+                            <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" />
+                            <path d="M3 21v-5h5" />
+                        </svg>
+                        Start Over
+                    </button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <div class="footer-content">
+                <p>&copy; 2026 Avatar System Orchestrator. Powered by LangGraph & SadTalker.</p>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">Documentation</a>
+                    <a href="#" class="footer-link">API</a>
+                    <a href="#" class="footer-link">GitHub</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Toast Notifications Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+        <div class="loading-spinner">
+            <div class="spinner-ring"></div>
+            <div class="spinner-ring"></div>
+            <div class="spinner-ring"></div>
+            <div class="loading-text">Processing...</div>
+        </div>
+    </div>
+
+    <!-- Troubleshooting Modal -->
+    <div id="troubleshooterModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content glass-panel">
+            <div class="modal-header">
+                <h2 class="gradient-text">System Troubleshooter 🛠️</h2>
+                <button onclick="toggleTroubleshooter()" class="btn-close">&times;</button>
+            </div>
+
+            <div class="troubleshooter-content">
+                <div class="issue-section">
+                    <h4>Common Issues</h4>
+                    <details>
+                        <summary>⚠️ No GPU Detected</summary>
+                        <p>The system is running in <b>CPU Mode</b>. This is slower (3-5 mins).<br>
+                            <b>Fix:</b> Ensure NVIDIA drivers are installed and CUDA 11.8+ is active. Check
+                            <code>nvidia-smi</code> in terminal.
+                        </p>
+                    </details>
+                    <details>
+                        <summary>🛑 Generation Stalls</summary>
+                        <p>Large images (>4K) or long audio (>60s) can cause timeouts.<br>
+                            <b>Fix:</b> Try resizing your image to 512x512 or using a shorter audio clip.
+                        </p>
+                    </details>
+                    <details>
+                        <summary>🔇 No Audio in Result</summary>
+                        <p>The input audio codec might be unsupported.<br>
+                            <b>Fix:</b> Convert audio to standard WAV (16-bit, 44.1kHz).
+                        </p>
+                    </details>
+                </div>
+
+                <div class="diagnostic-section">
+                    <h4>Diagnostic Report</h4>
+                    <div class="diagnostic-info">
+                        System: <span id="diagOS">Windows</span><br>
+                        Browser: <span id="diagBrowser">Chrome</span><br>
+                        WebGL: <span id="diagWebGL">Enabled</span><br>
+                        Backend: <span id="diagBackend">Connected</span>
+                    </div>
+                    <button onclick="copyDiagnostics()" class="btn-secondary"
+                        style="width: 100%; margin-top: 1rem;">Copy Report to Clipboard</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Modules -->
+    <script src="/static/js/ui.js"></script>
+    <script src="/static/js/api.js"></script>
+    <script src="/static/js/dashboard.js"></script>
+    <script src="/static/js/microphone.js"></script>
+    <script src="/static/js/audio-visualizer.js"></script>
+    <script src="/static/js/processing-visualizer.js"></script>
+    <script src="/static/js/system-settings.js"></script>
+    <script src="/static/js/app.js"></script>
+    <script src="/static/js/enhanced-app.js"></script>
+</body>
+
+</html>

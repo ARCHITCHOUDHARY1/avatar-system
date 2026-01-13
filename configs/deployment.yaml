@@ -1,0 +1,53 @@
+# Deployment Configuration
+deployment:
+  environment: "development"  # development, staging, production
+  
+  # Server settings
+  server:
+    host: "0.0.0.0"
+    port: 8000
+    workers: 4
+    reload: true
+    log_level: "info"
+    
+  # API settings
+  api:
+    api_prefix: "/api/v1"
+    cors_origins: ["*"]
+    max_upload_size: "100MB"
+    request_timeout: 300
+    
+  # WebSocket settings
+  websocket:
+    enabled: true
+    port: 8001
+    max_connections: 100
+    ping_interval: 30
+    ping_timeout: 10
+    
+  # Streaming settings
+  streaming:
+    enabled: true
+    chunk_size: 4096
+    buffer_size: 16384
+    audio_chunk_duration: 0.5  # seconds
+    video_chunk_duration: 1.0  # seconds
+    
+  # Database (if needed)
+  database:
+    enabled: false
+    url: "sqlite:///./avatar_system.db"
+    
+  # Monitoring
+  monitoring:
+    enabled: true
+    metrics_port: 9090
+    health_check_interval: 60
+    
+  # Logging
+  logging:
+    level: "INFO"
+    format: "json"
+    file: "./logs/app.log"
+    rotation: "1 day"
+    retention: "7 days"
