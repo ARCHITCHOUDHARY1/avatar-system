@@ -47,8 +47,11 @@ Thumbs.db
 # Model files (LARGE - don't commit to git!)
 models/wav2lip/checkpoints/*.pth
 models/sadtalker/checkpoints/*.pth
+models/sadtalker/checkpoints/*.tar
+models/sadtalker/checkpoints/*.pth.tar
 models/sadtalker/gfpgan/*.pth
 models/sadtalker/**/*.pth
+models/sadtalker/**/*.tar
 models/cache/
 gfpgan/weights/*.pth
 *.ckpt

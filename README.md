@@ -1,5 +1,18 @@
 # Avatar System Orchestrator - Complete Guide
 
+[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![GitHub Stars](https://img.shields.io/github/stars/ARCHITCHOUDHARY1/avatar-system?style=social)](https://github.com/ARCHITCHOUDHARY1/avatar-system/stargazers)
+[![GitHub Issues](https://img.shields.io/github/issues/ARCHITCHOUDHARY1/avatar-system)](https://github.com/ARCHITCHOUDHARY1/avatar-system/issues)
+[![Code Quality](https://img.shields.io/badge/code%20quality-A-brightgreen)](.)
+
+<div align="center">
+  <h3>🎭 Open-Source AI Avatar Generation System</h3>
+  <p>Create realistic talking avatars from static images and audio using LangGraph + Mistral + PyTorch</p>
+</div>
+
+---
+
 ## **📊 Project Overview**
 
 This is an **open-source avatar generation system** that creates realistic talking avatars from static images and audio using AI models orchestrated through LangGraph.
